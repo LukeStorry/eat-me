@@ -2,6 +2,7 @@
   "expo": {
     "name": "Eat Me",
     "slug": "eat-me",
+    "privacy": "public",
     "platforms": [
       "ios",
       "android",
