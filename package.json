@@ -4,7 +4,8 @@
     "start": "expo start --localhost --android --web",
     "format": "yarn eslint --fix --ext .tsx .",
     "android": "expo start --localhost --android",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "deploy:web": "expo build:web && firebase deploy"
   },
   "dependencies": {
     "expo": "~37.0.3",
