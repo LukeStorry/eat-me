@@ -13,21 +13,25 @@ import {
   TouchableHighlight,
   TouchableOpacity,
   Dimensions,
+  Button,
 } from "react-native";
 
 import { config as fbConfig } from "./firebase";
 
 export default function App() {
-  const [inputText, setInputText] = useState("new food item");
+  if (!firebase.apps.length) firebase.initializeApp(fbConfig);
 
-  // if (!firebase.apps.length) firebase.initializeApp(fbConfig);
+  const kitchenRef = firebase
+    .firestore()
+    .collection("kitchens")
+    .doc("k6WKW8cNRoLSrFSXF5tO");
 
-  // const kitchenRef = firebase
-  //   .firestore()
-  //   .collection("kitchens")
-  //   .doc("k6WKW8cNRoLSrFSXF5tO");
+  const addItem = async (name) => {
+    console.log(name);
+    await kitchenRef.set({ food: name });
+    console.log("done");
 
-  // kitchenRef.get().then((a) => console.log(a));
+  };
 
   return (
     <>
@@ -52,7 +56,9 @@ export default function App() {
         renderItem={({ item }) => (
           <TouchableOpacity style={s.listItem}>
             <View style={s.rowContainer}>
-              <Text style={{ fontWeight: "bold" }}>Item {item.name} </Text>
+              <Text style={{ fontWeight: "bold" }}>
+                {`  Item ${item.name}    `}
+              </Text>
               <Text>{`Expires in ${Math.floor(Math.random() * 10)} days`}</Text>
             </View>
           </TouchableOpacity>
@@ -61,12 +67,32 @@ export default function App() {
         refreshing={false}
       />
 
-      <View style={s.inputBox}>
-        <TextInput value={inputText} onChangeText={setInputText} />
-      </View>
+      <InputForm addItem={addItem} />
     </>
   );
 }
+
+const InputForm = ({ addItem }) => {
+  const [inputText, setInputText] = useState("new food item");
+
+  return (
+    <View style={[s.inputBox, s.rowContainer]}>
+      <TextInput
+        style={{ padding: 10 }}
+        value={inputText}
+        onChangeText={setInputText}
+      />
+      <Button
+        title="Add"
+        onPress={() => {
+          addItem(inputText);
+          setInputText("new food item");
+        }}
+        color="black"
+      />
+    </View>
+  );
+};
 
 const s = StyleSheet.create({
   headerBar: {
@@ -106,8 +132,7 @@ const s = StyleSheet.create({
     borderWidth: 1,
   },
   inputBox: {
-    alignItems: "center",
     backgroundColor: "#42cdef",
-    padding: 20,
+    padding: 5,
   },
 });

@@ -1,0 +1,16 @@
+{
+  "hosting": {
+    "public": "web-build",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+  },
+  "config": {
+    "apiKey": "AIzaSyBAqb53DGJ17q5FE24pFNKnk7W5q4OUrf0",
+    "authDomain": "eat-me-food.firebaseapp.com",
+    "databaseURL": "https://eat-me-food.firebaseio.com",
+    "projectId": "eat-me-food",
+    "storageBucket": "eat-me-food.appspot.com",
+    "messagingSenderId": "671687469585",
+    "appId": "1:671687469585:web:d43d10684e5df436269fb0",
+    "measurementId": "G-7B121H6V4Z"
+  }
+}
